@@ -2,8 +2,8 @@ import Firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import React, { useState, useEffect, useContext } from 'react'
-import './styles.css'
-import loading from './loading.gif'
+// import './styles.css'
+// import loading from './loading.gif'
 
 export const FirebaseConnection = (obj) => {
     Firebase.initializeApp(obj)
@@ -173,9 +173,9 @@ export const FirebaseAuthModal = (props) => {
                         <div id="error-message" style={{display: errorMessage ? 'block' : 'none'}}>{errorMessage}</div>
 					    <div id="success-message" style={{display: successMessage ? 'block' : 'none'}}>{successMessage}</div>
 					
-                        {showLoadingVisual &&
+                        {/* {showLoadingVisual &&
                             <div style={{width: '60px', margin: 'auto', marginTop: '20px'}}><img src={loading} style={{width: '100%'}} alt="loading"  /></div> 
-                        }
+                        } */}
                         
 
                         <div id="have-or-need-account-dialog" style={{display: 'block'}}>
