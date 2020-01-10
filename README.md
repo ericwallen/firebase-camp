@@ -193,7 +193,7 @@ service cloud.firestore {
 
 I can't stand it when something simple goes unexplained so I am going to show you what my data looks like in the Firebase console for good measure. Notice that **title** is part of my data. Thats what I showed you in the above .map().
 
-![Data Structure](./images/data-structure.jpg)
+![Data Structure](./images/data-structure.png)
 
 
 ## Using the Authenticaton Modal
