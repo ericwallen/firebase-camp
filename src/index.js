@@ -2,8 +2,7 @@ import Firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import React, { useState, useEffect, useContext } from 'react'
-// import './styles.css'
-// import loading from './loading.gif'
+
 
 export const FirebaseConnection = (obj) => {
     Firebase.initializeApp(obj)
@@ -104,7 +103,7 @@ export const FirebaseAuthModal = (props) => {
         <>
             <div id="auth-modal" style={{ display: props.show ? 'block' : 'none' }}>
                 <div id="auth-modal-content">
-                    <span id="auth-modal-close" className={props.closeModalButtonClass} onClick={props.handleHideAuthModal}>x</span>
+                    <span id="auth-modal-close" className="button-style-three" onClick={props.handleHideAuthModal}>x</span>
                     <div id="authentication">
 
                         {/* {this.props.state.pleaseAuthenticateMessage !== "" && 
@@ -141,7 +140,7 @@ export const FirebaseAuthModal = (props) => {
                                 </div>
 
                                 <div style={{ display: 'grid', justifyItems: 'center' }}>
-                                    <button className={props.createUserButtonClass} type="submit">Create User</button>
+                                    <button className="button-style-two" type="submit">Create User</button>
                                 </div>
 
                             </form>
@@ -155,7 +154,7 @@ export const FirebaseAuthModal = (props) => {
                                 </div>
 
                                 <div id="forgot-password-link"  onClick={() => props.changeForm('forgotPassword')}>Forgot?</div>
-                                <p className="center"><button className={props.signInUserButtonClass} type="submit">Sign In</button></p>
+                                <p className="center"><button className="button-style-one" type="submit">Sign In</button></p>
                             </form>
                         }
 
@@ -165,7 +164,7 @@ export const FirebaseAuthModal = (props) => {
                             <div id="forgot-password-inputs">
                                 <input className={props.inputsClass} onChange={handleInputs} type="email" name="forgotPasswordEmail" placeholder="Email" required autoComplete="off"/>
                             </div>
-                            <p className="center"><button className={props.forgotPasswordButtonClass} type="submit">Send Recovery Email</button></p>
+                            <p className="center"><button className="button-style-three" type="submit">Send Recovery Email</button></p>
                         </form> 
                         }
 
@@ -173,17 +172,17 @@ export const FirebaseAuthModal = (props) => {
                         <div id="error-message" style={{display: errorMessage ? 'block' : 'none'}}>{errorMessage}</div>
 					    <div id="success-message" style={{display: successMessage ? 'block' : 'none'}}>{successMessage}</div>
 					
-                        {/* {showLoadingVisual &&
-                            <div style={{width: '60px', margin: 'auto', marginTop: '20px'}}><img src={loading} style={{width: '100%'}} alt="loading"  /></div> 
-                        } */}
+                        {showLoadingVisual &&
+                            <div style={{width: '60px', margin: 'auto', marginTop: '20px'}}><img src={props.loading} style={{width: '100%'}} alt="loading"  /></div> 
+                        }
                         
 
                         <div id="have-or-need-account-dialog" style={{display: 'block'}}>
 						<p className="center" id="create-user-dialog" style={{display: props.showForm === 'signIn' ? 'block' : 'none'}}>
-							Don't have an account? <span className={props.createUserToggleClass} style={{cursor: 'pointer'}} onClick={() => changeForm('createUser')}>Create User</span>
+							Don't have an account? <span className="createUserToggle" style={{cursor: 'pointer'}} onClick={() => changeForm('createUser')}>Create User</span>
 						</p>
 						<p className="center" id="sign-in-dialog" style={{display: props.showForm === 'createUser' ? 'block' : 'none'}}>
-							Already have an account?  <span className={props.signInToggleClass} style={{cursor: 'pointer'}} onClick={() => changeForm('signIn')}>Sign In</span>
+							Already have an account?  <span className="signInToggle" style={{cursor: 'pointer'}} onClick={() => changeForm('signIn')}>Sign In</span>
 						</p>
 					</div>
                     </div>
