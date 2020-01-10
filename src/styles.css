@@ -23,8 +23,8 @@
 	padding: 8px 14px 9px 15px;
 	border-radius: 100px;
 	z-index: '1';
-    position: relative;
-    text-align: center;
+	position: relative;
+	text-align: center;
 }
 #auth-modal-close:hover, #auth-modal-close:focus{
 	text-decoration: none;
@@ -36,7 +36,6 @@
 #sign-in-link, #create-user-link{
 	color: #32a1d7;
 	margin-left: 5px;
-	
 }
 #create-user-inputs, #sign-in-inputs{
 	display: grid;
@@ -100,62 +99,62 @@
 	padding: 10px;
 }
 .center{
-    text-align: center;
+	text-align: center;
 }
 button{
-    color: #FFF;
-    width: 100%;
-    text-align: center;
-    border: 0px;
-    border-radius: 10px;
-    padding: 10px 5px 10px 5px;
-    font-size: 16px;
-    outline: 0;
-    cursor: pointer;
+	color: #FFF;
+	width: 100%;
+	text-align: center;
+	border: 0px;
+	border-radius: 10px;
+	padding: 10px 5px 10px 5px;
+	font-size: 16px;
+	outline: 0;
+	cursor: pointer;
 }
 .button-style-one{
-    color: #FFF;
-    max-width: 200px;
-    background-color: #70C284;
-    box-shadow: 0 2px rgb(95, 167, 113);
+	color: #FFF;
+	max-width: 200px;
+	background-color: #70C284;
+	box-shadow: 0 2px rgb(95, 167, 113);
 }
 .button-style-one:hover{
-    box-shadow: 0 1px rgb(95, 167, 113);
+	box-shadow: 0 1px rgb(95, 167, 113);
 }
 .button-style-one:active{
-    box-shadow: 0 0 rgb(95, 167, 113);
+	box-shadow: 0 0 rgb(95, 167, 113);
 }
 .button-style-two{
-    color: #FFF;
-    max-width: 200px;
-    margin: auto;
-    background-color: #8697CB;
-    box-shadow: 0 2px rgb(106, 121, 163);
+	color: #FFF;
+	max-width: 200px;
+	margin: auto;
+	background-color: #8697CB;
+	box-shadow: 0 2px rgb(106, 121, 163);
 }
 .button-style-two:hover{
-    box-shadow: 0 1px rgb(106, 121, 163);
+	box-shadow: 0 1px rgb(106, 121, 163);
 }
 .button-style-two:active{
-    box-shadow: 0 0 rgb(106, 121, 163);
+	box-shadow: 0 0 rgb(106, 121, 163);
 }
 .button-style-three{
-    color: #FFF;
-    max-width: 200px;
-    margin: auto;
-    background-color: rgb(196, 196, 196);
-    box-shadow: 0 2px rgb(167, 167, 167);
+	color: #FFF;
+	max-width: 200px;
+	margin: auto;
+	background-color: rgb(196, 196, 196);
+	box-shadow: 0 2px rgb(167, 167, 167);
 } 
 .button-style-three:hover{
-    box-shadow: 0 1px rgb(167, 167, 167);
+	box-shadow: 0 1px rgb(167, 167, 167);
 }
 .button-style-three:active{
-    box-shadow: 0 0 rgb(167, 167, 167);
+	box-shadow: 0 0 rgb(167, 167, 167);
 }
 .signInToggle{
-    color: #70C284;
+	color: #70C284;
 }
 .createUserToggle{
-    color: #8697CB;
+	color: #8697CB;
 }
 input{
 	width: 100%;
