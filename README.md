@@ -14,24 +14,24 @@
 
 ## Implementation using React hooks
 
-### **Step 1** Install it through NPM 
+### Step 1. Install it through NPM 
 ```
 npm i firebase-camp
 ```
 
-### **Step 2** Import it into your app
+### Step 2. Import it into your app
 Note: I always use *create-react-app* to initialize React apps. My examples will be based on this configuration.
 
 ```
 import Firebase, { FirebaseConnection, FirebaseAuthModal } from 'firebase-camp'
 ```
 
-### **Step 3** Import React hook *useEffect*
+### Step 3. Import React hook *useEffect*
 ```
 import React, {useEffect} from 'react';
 ```
 
-### **Step 4** Use FirebaseConnection inside useEffect
+### Step 4. Use FirebaseConnection inside useEffect
 Pass your firebase details to FirebaseConnection() as an object inside the useEffect() React hoo. The object below is for example purposes only and will not work.
 ```
   useEffect(() => {
@@ -81,7 +81,7 @@ export default App;
 ## Using Cloud Firestore
 Making Firesore queries is pretty easy. If you are viewing Firebase documentation you will see that all queries start like this `firebase.collection('lessons')`. With this package you call it like this `Firebase.collection('lessons')`. The only difference is the capital *F*.
 
-### **Step 1** Make the query
+### Step 1. Make the query
 ```
 Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
     const data = querySnapshot.docs.map(doc => {
@@ -93,7 +93,7 @@ Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
 })
 ```
 
-### **Step 2** Put your data into state
+### Step 2. Put your data into Reacts state
 import React hook `useState`
 ```
 import React, {useEffect, useState} from 'react';
@@ -114,7 +114,7 @@ Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
 })
 ```
 
-### **Step 3** Loop (map) through it in your function return
+### Step 3. Loop (map) through it in your function return
 ```
 {lessons.map((each) => {
     return(
@@ -193,7 +193,7 @@ service cloud.firestore {
 
 I can't stand it when something simple goes unexplained so I am going to show you what my data looks like in the Firebase console for good measure. Notice that **title** is part of my data. Thats what I showed you in the above .map().
 
-![Data Structure](images/data-structure.jpg)
+![Data Structure](./images/data-structure.jpg)
 
 
 ## Using the Authenticaton Modal
