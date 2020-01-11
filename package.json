@@ -1,6 +1,6 @@
 {
   "name": "firebase-camp",
-  "version": "1.0.04",
+  "version": "1.0.08",
   "description": "Use Firebase in your React app super easily",
   "main": "build/index.js",
   "scripts": {

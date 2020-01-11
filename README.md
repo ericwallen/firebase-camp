@@ -2,7 +2,7 @@
 
 ## Use Firebase in your React app super easily
 
-![Data Structure](images/documentation-header.svg)
+![logo](images/documentation-header.png)
 
 ### Setting up Firebase in React can be tricky. This pacakge is designed to make configuring Firebase in your app a cinch. It also has a robust UI for Firebase Authenticaiton. 
 
@@ -312,9 +312,8 @@ or copy this CSS into your App.css file. To be fair this is a better choice becu
 .center{
 	text-align: center;
 }
-button{
+.button-style-one{
 	color: #FFF;
-	width: 100%;
 	text-align: center;
 	border: 0px;
 	border-radius: 10px;
@@ -322,9 +321,6 @@ button{
 	font-size: 16px;
 	outline: 0;
 	cursor: pointer;
-}
-.button-style-one{
-	color: #FFF;
 	max-width: 200px;
 	background-color: #70C284;
 	box-shadow: 0 2px rgb(95, 167, 113);
@@ -337,6 +333,13 @@ button{
 }
 .button-style-two{
 	color: #FFF;
+	text-align: center;
+	border: 0px;
+	border-radius: 10px;
+	padding: 10px 5px 10px 5px;
+	font-size: 16px;
+	outline: 0;
+	cursor: pointer;
 	max-width: 200px;
 	margin: auto;
 	background-color: #8697CB;
@@ -350,6 +353,13 @@ button{
 }
 .button-style-three{
 	color: #FFF;
+	text-align: center;
+	border: 0px;
+	border-radius: 10px;
+	padding: 10px 5px 10px 5px;
+	font-size: 16px;
+	outline: 0;
+	cursor: pointer;
 	max-width: 200px;
 	margin: auto;
 	background-color: rgb(196, 196, 196);
