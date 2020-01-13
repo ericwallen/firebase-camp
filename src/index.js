@@ -1,12 +1,27 @@
-import Firebase from 'firebase/app';
+import app from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, createContext } from 'react'
+const FirebaseContext = createContext(null)
+export { FirebaseContext }
 
 
 export const FirebaseConnection = (obj) => {
-    Firebase.initializeApp(obj)
+    if (!app.apps.length) {
+        app.initializeApp({...obj})
+      }
 }
+
+
+export default ({children}) => {
+      return (
+        <FirebaseContext.Provider value={ app }>
+          { children }
+        </FirebaseContext.Provider>
+      )
+}
+
+
 
 export const FirebaseAuthModal = (props) => {
     const [errorMessage, setErrorMessage] = useState("")
@@ -19,9 +34,9 @@ export const FirebaseAuthModal = (props) => {
     const handleCreateUserFormSubmit = (event) => {
         event.preventDefault()
         setShowLoadingVisual(true)
-        Firebase.auth().createUserWithEmailAndPassword(inputsObj.createUserEmail, inputsObj.createUserPassword)
+        app.auth().createUserWithEmailAndPassword(inputsObj.createUserEmail, inputsObj.createUserPassword)
         .then(()=>{
-            Firebase.auth().currentUser.updateProfile({
+            app.auth().currentUser.updateProfile({
 				displayName: inputsObj.createUserDisplayName
 			}).then(() => {
                 setShowLoadingVisual(false)
@@ -42,7 +57,7 @@ export const FirebaseAuthModal = (props) => {
     const handleSignInFormSubmit = (event) => {
         event.preventDefault()
         setShowLoadingVisual(true)
-        Firebase.auth().signInWithEmailAndPassword(inputsObj.signInEmail, inputsObj.signInPassword)
+        app.auth().signInWithEmailAndPassword(inputsObj.signInEmail, inputsObj.signInPassword)
         .then(()=>{
             setShowLoadingVisual(false)
             props.handleHideAuthModal()
@@ -62,7 +77,7 @@ export const FirebaseAuthModal = (props) => {
     const handleForgotPasswordFormSubmit = (event) => {
         event.preventDefault()
         setShowLoadingVisual(true)
-        Firebase.auth().sendPasswordResetEmail(inputsObj.forgotPasswordEmail)
+        app.auth().sendPasswordResetEmail(inputsObj.forgotPasswordEmail)
         .then((success)=>{
             setShowLoadingVisual(false)
             setSuccessMessage('Password recovery email sent. Please check your email')
@@ -103,7 +118,7 @@ export const FirebaseAuthModal = (props) => {
         <>
             <div id="auth-modal" style={{ display: props.show ? 'block' : 'none' }}>
                 <div id="auth-modal-content">
-                    <span id="auth-modal-close" className="button-style-three" onClick={props.handleHideAuthModal}>x</span>
+                    <span id="auth-modal-close" onClick={props.handleHideAuthModal}>x</span>
                     <div id="authentication">
 
                         {/* {this.props.state.pleaseAuthenticateMessage !== "" && 
@@ -193,4 +208,3 @@ export const FirebaseAuthModal = (props) => {
 }
 
 
-export default Firebase

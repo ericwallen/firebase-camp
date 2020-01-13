@@ -21,11 +21,12 @@
 npm i firebase-camp
 ```
 
+In *App.js*
 ### Step 2. Import it into your app
 Note: I always use *create-react-app* to initialize React apps. My examples will be based on this configuration.
 
 ```
-import Firebase, { FirebaseConnection, FirebaseAuthModal } from 'firebase-camp'
+import { FirebaseConnection, FirebaseContext, FirebaseAuthModal } from 'firebase-camp'
 ```
 
 ### Step 3. Import React hook *useEffect*
@@ -34,7 +35,7 @@ import React, {useEffect} from 'react';
 ```
 
 ### Step 4. Use FirebaseConnection inside useEffect
-Pass your firebase details to FirebaseConnection() as an object inside the useEffect() React hoo. The object below is for example purposes only and will not work.
+Pass your firebase details to FirebaseConnection() as an object inside the useEffect() React hook. The object below is for example purposes only and will not work.
 ```
   useEffect(() => {
     FirebaseConnection({
@@ -48,7 +49,7 @@ Pass your firebase details to FirebaseConnection() as an object inside the useEf
     })
   }, [])
   ```
-### Pulling it all together
+#### Pulling it all together
 Your app might look something like this right now.
 ```
 import React, { useEffect } from 'react';
@@ -79,13 +80,48 @@ function App() {
 export default App;
 ```
 
+Step 5 Wrap Firebase provider around App
+
+In *index.js*
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App.jsx';
+import * as serviceWorker from './serviceWorker';
+import FirebaseProvider from './components/firebase-camp/app'
+
+ReactDOM.render(
+<FirebaseProvider>
+    <App />
+</FirebaseProvider>
+
+, document.getElementById('root'));
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+```
+
 
 ## Using Cloud Firestore
 Making Firesore queries is pretty easy. If you are viewing Firebase documentation you will see that all queries start like this `firebase.collection('lessons')`. With this package you call it like this `Firebase.collection('lessons')`. The only difference is the capital *F*.
 
-### Step 1. Make the query
+
+### Step 1 Use FirebaseContext to make a const named firebase
 ```
-Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
+const firebase = useContext(FirebaseContext)
+```
+
+### Step 2 Make a reference
+```
+const ref = firebase.firestore().collection('lessons')
+```
+
+### Step 3 Make the query
+```
+firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
     const data = querySnapshot.docs.map(doc => {
         let obj = doc.data()
         obj.id = doc.id
@@ -95,7 +131,7 @@ Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
 })
 ```
 
-### Step 2. Put your data into React state
+### Step 4 Put your data into React state
 import React hook `useState`
 ```
 import React, {useEffect, useState} from 'react';
@@ -116,7 +152,7 @@ Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
 })
 ```
 
-### Step 3. Loop (map) through your data inside your function return
+### Step 5. Loop (map) through your data inside your function return
 ```
 {lessons.map((each) => {
     return(
@@ -131,14 +167,14 @@ Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
 Your app might look something like this right now.
 ```
 import React, { useEffect, useState } from 'react';
-import Firebase, { FirebaseConnection, FirebaseAuthModal } from 'firebase-camp'
+import { Firebase Context FirebaseConnection, FirebaseAuthModal } from 'firebase-camp'
 import '../node_modules/firebase-camp/src/styles.css'
 import './App.css';
 
 function App() {
 
   const [lessons, setLessons] = useState([])
-
+  const firebase = useContext(FirebaseContext)
   useEffect(() => {
 
     FirebaseConnection({
@@ -151,7 +187,7 @@ function App() {
       appId: "1:397174694587:web:3dd5b6bcffdd23df7"
     })
 
-    Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
+    firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
       const data = querySnapshot.docs.map(doc => {
         let obj = doc.data()
         obj.id = doc.id
@@ -227,19 +263,24 @@ or copy this CSS into your App.css file. To be fair this is a better choice becu
 	width: 400px;
 }
 #auth-modal-close{
+    color: #FFF;
 	float: right;
 	margin-right: -15px;
 	margin-top: -15px;
 	font-size: 18px;
 	padding: 8px 14px 9px 15px;
 	border-radius: 100px;
-	z-index: '1';
+    cursor: pointer;
 	position: relative;
-	text-align: center;
+    text-align: center;
+    background-color: rgb(196, 196, 196);
+	box-shadow: 0 2px rgb(167, 167, 167);
 }
-#auth-modal-close:hover, #auth-modal-close:focus{
-	text-decoration: none;
-	cursor: pointer;
+#auth-modal-close:hover{
+	box-shadow: 0 1px rgb(167, 167, 167);
+}
+#auth-modal-close:active{
+	box-shadow: 0 0 rgb(167, 167, 167);
 }
 #authentication{
 	padding: 40px 20px 20px 20px;
@@ -321,6 +362,7 @@ or copy this CSS into your App.css file. To be fair this is a better choice becu
 	font-size: 16px;
 	outline: 0;
 	cursor: pointer;
+	width: 100%;
 	max-width: 200px;
 	background-color: #70C284;
 	box-shadow: 0 2px rgb(95, 167, 113);
@@ -340,6 +382,7 @@ or copy this CSS into your App.css file. To be fair this is a better choice becu
 	font-size: 16px;
 	outline: 0;
 	cursor: pointer;
+	width: 100%;
 	max-width: 200px;
 	margin: auto;
 	background-color: #8697CB;
@@ -360,6 +403,7 @@ or copy this CSS into your App.css file. To be fair this is a better choice becu
 	font-size: 16px;
 	outline: 0;
 	cursor: pointer;
+	width: 100%;
 	max-width: 200px;
 	margin: auto;
 	background-color: rgb(196, 196, 196);
@@ -453,7 +497,7 @@ const changeForm = (form) => {
 }, [])
 ```
 
-I like to put my use in React state like this
+I like to put my user in React state like this
 
 ```
 const [user, setUser] = useState({})
@@ -472,7 +516,7 @@ useEffect(() => {
 }, [])
 ```
 
-Final Example App with Cloud Firestore and Authentication
+Final Example App with Cloud Firestore and the Authentication Modal
 
 ```
 import React, { useEffect, useState } from 'react';

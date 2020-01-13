@@ -16,34 +16,23 @@
 	width: 400px;
 }
 #auth-modal-close{
+    color: #FFF;
 	float: right;
 	margin-right: -15px;
 	margin-top: -15px;
 	font-size: 18px;
 	padding: 8px 14px 9px 15px;
 	border-radius: 100px;
-	z-index: '1';
+    cursor: pointer;
 	position: relative;
-	text-align: center;
-}
-.button-style-close{
-	color: #FFF;
-	text-align: center;
-	border: 0px;
-	border-radius: 10px;
-	padding: 10px 5px 10px 5px;
-	font-size: 16px;
-	outline: 0;
-	cursor: pointer;
-	max-width: 200px;
-	margin: auto;
-	background-color: rgb(196, 196, 196);
+    text-align: center;
+    background-color: rgb(196, 196, 196);
 	box-shadow: 0 2px rgb(167, 167, 167);
-} 
-.button-style-close:hover{
+}
+#auth-modal-close:hover{
 	box-shadow: 0 1px rgb(167, 167, 167);
 }
-.button-style-close:active{
+#auth-modal-close:active{
 	box-shadow: 0 0 rgb(167, 167, 167);
 }
 #authentication{
