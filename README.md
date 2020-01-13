@@ -436,7 +436,8 @@ input:focus{
 import loading from '../node_modules/firebase-camp/src/loading.gif'
 ```
 
-Here is what the loading giphy looks like
+#### Here is what the loading giphy looks like
+
 ![logo](images/loading-preview.gif)
 
 ### Step 3. Configure state and functions
@@ -610,8 +611,6 @@ export default App;
 
 ### Step 7 Security Rules
 Don't forget to all the user to be added to the database as well. This is where the first and last name get recorded.
-
-Your rules might look like something like this:
 ```
 service cloud.firestore {
   match /databases/{database}/documents {
