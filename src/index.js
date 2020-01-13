@@ -44,6 +44,10 @@ export const FirebaseAuthModal = (props) => {
                 setTimeout(() => {
                     setErrorMessage('')
                 }, 7000)
+                app.firestore().collection(props.usersCollection).doc(app.auth().currentUser.uid).set({
+                    firstName: inputsObj.createUserFirstName,
+                    lastName: inputsObj.createUserLastName
+                })
             })
         })
         .catch((error)=>{
