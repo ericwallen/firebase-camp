@@ -31,7 +31,7 @@ import { FirebaseConnection, FirebaseContext, FirebaseAuthModal } from 'firebase
 
 ### Step 3. Import React hook *useEffect*
 ```
-import React, {useEffect} from 'react';
+import React, { useEffect, useContext } from 'react';
 ```
 
 ### Step 4. Use FirebaseConnection inside useEffect
@@ -89,7 +89,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App.jsx';
 import * as serviceWorker from './serviceWorker';
-import FirebaseProvider from './components/firebase-camp/app'
+import FirebaseProvider from 'firebase-camp'
 
 ReactDOM.render(
 <FirebaseProvider>
@@ -114,12 +114,7 @@ Making Firesore queries is pretty easy. If you are viewing Firebase documentatio
 const firebase = useContext(FirebaseContext)
 ```
 
-### Step 2 Make a reference
-```
-const ref = firebase.firestore().collection('lessons')
-```
-
-### Step 3 Make the query
+### Step 2 Make the query
 ```
 firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
     const data = querySnapshot.docs.map(doc => {
@@ -131,10 +126,10 @@ firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
 })
 ```
 
-### Step 4 Put your data into React state
+### Step 3 Put your data into React state
 import React hook `useState`
 ```
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 ```
 initalize state for your collection. My collection example is *lessons*. Yours will likely be something completely different
 ```
@@ -152,7 +147,7 @@ Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
 })
 ```
 
-### Step 5. Loop (map) through your data inside your function return
+### Step 4. Loop (map) through your data inside your function return
 ```
 {lessons.map((each) => {
     return(
@@ -163,7 +158,7 @@ Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
 })}
 ```
 
-### Pulling it all together
+#### Pulling it all together
 Your app might look something like this right now.
 ```
 import React, { useEffect, useState } from 'react';
@@ -214,7 +209,7 @@ function App() {
 export default App;
 ```
 
-### Some additional Cloud Firestore notes
+### Step 5 Security Rules
 Don't forget that your collection must be readable at this point with no authentication.
 
 Your rules might look like something like this:
@@ -441,6 +436,9 @@ input:focus{
 import loading from '../node_modules/firebase-camp/src/loading.gif'
 ```
 
+Here is what the loading giphy looks like
+![logo](images/loading-preview.gif)
+
 ### Step 3. Configure state and functions
 Initalize these two states. `showAuthModal` allows you to show/hide the modal. `showForm` allows you to toggle between the **sign in**, **create user**, and **forgot password** forms.
 ```
@@ -471,7 +469,7 @@ const changeForm = (form) => {
     showForm={showForm}
     changeForm={changeForm}
     loading={loading}
-    Firebase={Firebase}
+    usersCollection='users'
 />
 ```
 
@@ -485,7 +483,7 @@ const changeForm = (form) => {
 
 ```
  useEffect(() => {
-    Firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user){
         console.log(user);
         // do stuff here that you want to happen when user is signed out
@@ -503,7 +501,7 @@ I like to put my user in React state like this
 const [user, setUser] = useState({})
 
 useEffect(() => {
-    Firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user){
         console.log(user);
         // do stuff here that you want to happen when user is signed out
@@ -516,11 +514,12 @@ useEffect(() => {
 }, [])
 ```
 
+#### Pulling it all together
 Final Example App with Cloud Firestore and the Authentication Modal
 
 ```
-import React, { useEffect, useState } from 'react';
-import Firebase, { FirebaseConnection, FirebaseAuthModal } from 'firebase-camp'
+import React, { useEffect, useState, useContext } from 'react';
+import { FirebaseConnection, FirebaseContext, FirebaseAuthModal } from 'firebase-camp'
 import loading from '../node_modules/firebase-camp/src/loading.gif'
 import '../node_modules/firebase-camp/src/styles.css'
 import './App.css';
@@ -531,20 +530,21 @@ function App() {
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [showForm, setShowForm] = useState('')
   const [user, setUser] = useState({})
+  const firebase = useContext(FirebaseContext)
 
   useEffect(() => {
 
     FirebaseConnection({
-      apiKey: "AIzaSyDsd32fdsJSuhM5-SwPciefJh4noeuOoIo",
+      apiKey: "AIzaSyDtA6DdXoJSuhM5-SwPciefJh4noeuOoIo",
       authDomain: "fullstackcode-camp.firebaseapp.com",
       databaseURL: "https://fullstackcode-camp.firebaseio.com",
       projectId: "fullstackcode-camp",
       storageBucket: "fullstackcode-camp.appspot.com",
-      messagingSenderId: "3971746234287",
-      appId: "1:397174694587:web:3dd5b6bcffdd23df7"
+      messagingSenderId: "397174694587",
+      appId: "1:397174694587:web:3dd5b6bcff4579f7"
     })
 
-    Firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user){
         console.log(user);
         // do stuff here that you want to happen when user is signed out
@@ -555,14 +555,14 @@ function App() {
       }
     })
 
-    Firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
+    firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
       const data = querySnapshot.docs.map(doc => {
-        let obj = doc.data()
-        obj.id = doc.id
-        return obj
+          let obj = doc.data()
+          obj.id = doc.id
+          return obj
       })
-      setLessons(data)
-    })
+      console.log(data)
+  })
 
   }, [])
 
@@ -585,7 +585,7 @@ function App() {
             showForm={showForm}
             changeForm={changeForm}
             loading={loading}
-            Firebase={Firebase}
+            usersCollection='users'
          />
 
         <button onClick={() => handleShowAuthModal('signIn')}>Sign in</button>
@@ -604,5 +604,22 @@ function App() {
 }
 
 export default App;
+
+```
+
+
+### Step 7 Security Rules
+Don't forget to all the user to be added to the database as well. This is where the first and last name get recorded.
+
+Your rules might look like something like this:
+```
+service cloud.firestore {
+  match /databases/{database}/documents {
+      
+      match /users/{document=**} {
+      	allow create: if request.auth.uid != null;
+    	}
+  }
+}
 ```
 
