@@ -39,13 +39,13 @@ Pass your firebase details to FirebaseConnection() as an object inside the useEf
 ```
   useEffect(() => {
     FirebaseConnection({
-      apiKey: "AIzaSyDsd32fdsJSuhM5-SwPciefJh4noeuOoIo",
+      apiKey: "AIzaSyDsd32fdsJSuhM5-SwPcfasdWdnoeuOoIo",
       authDomain: "fullstackcode-camp.firebaseapp.com",
       databaseURL: "https://fullstackcode-camp.firebaseio.com",
       projectId: "fullstackcode-camp",
       storageBucket: "fullstackcode-camp.appspot.com",
-      messagingSenderId: "3971746234287",
-      appId: "1:397174694587:web:3dd5b6bcffdd23df7"
+      messagingSenderId: "3974346234287",
+      appId: "1:397174694587:web:3dd5sadfwwfdd23df7"
     })
   }, [])
   ```
@@ -60,13 +60,13 @@ import './App.css';
 function App() {
   useEffect(() => {
     FirebaseConnection({
-      apiKey: "AIzaSyDtA6DdXoJSuhM5-SwPciefJh4noeuOoIo",
+      apiKey: "AIzaSyDsd32fdsJSuhM5-SwPcfasdWdnoeuOoIo",
       authDomain: "fullstackcode-camp.firebaseapp.com",
       databaseURL: "https://fullstackcode-camp.firebaseio.com",
       projectId: "fullstackcode-camp",
       storageBucket: "fullstackcode-camp.appspot.com",
-      messagingSenderId: "397174694587",
-      appId: "1:397174694587:web:3dd5b6bcff4579f7"
+      messagingSenderId: "3974346234287",
+      appId: "1:397174694587:web:3dd5sadfwwfdd23df7"
     })
   }, [])
 
@@ -173,13 +173,13 @@ function App() {
   useEffect(() => {
 
     FirebaseConnection({
-      apiKey: "AIzaSyDsd32fdsJSuhM5-SwPciefJh4noeuOoIo",
+      apiKey: "AIzaSyDsd32fdsJSuhM5-SwPcfasdWdnoeuOoIo",
       authDomain: "fullstackcode-camp.firebaseapp.com",
       databaseURL: "https://fullstackcode-camp.firebaseio.com",
       projectId: "fullstackcode-camp",
       storageBucket: "fullstackcode-camp.appspot.com",
-      messagingSenderId: "3971746234287",
-      appId: "1:397174694587:web:3dd5b6bcffdd23df7"
+      messagingSenderId: "3974346234287",
+      appId: "1:397174694587:web:3dd5sadfwwfdd23df7"
     })
 
     firebase.firestore().collection('lessons').onSnapshot(querySnapshot => {
@@ -230,7 +230,8 @@ I can't stand it when something simple goes unexplained so I am going to show yo
 
 
 ## Using the Authenticaton Modal
-Modal preview
+#### Modal preview
+
 ![Authentication Modal](images/auth-modal.png)
 
 ### Step 1. Import or copy CSS into your existing CSS file
@@ -536,13 +537,13 @@ function App() {
   useEffect(() => {
 
     FirebaseConnection({
-      apiKey: "AIzaSyDtA6DdXoJSuhM5-SwPciefJh4noeuOoIo",
+      apiKey: "AIzaSyDsd32fdsJSuhM5-SwPcfasdWdnoeuOoIo",
       authDomain: "fullstackcode-camp.firebaseapp.com",
       databaseURL: "https://fullstackcode-camp.firebaseio.com",
       projectId: "fullstackcode-camp",
       storageBucket: "fullstackcode-camp.appspot.com",
-      messagingSenderId: "397174694587",
-      appId: "1:397174694587:web:3dd5b6bcff4579f7"
+      messagingSenderId: "3974346234287",
+      appId: "1:397174694587:web:3dd5sadfwwfdd23df7"
     })
 
     firebase.auth().onAuthStateChanged(user => {
