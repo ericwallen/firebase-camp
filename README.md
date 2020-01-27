@@ -10,7 +10,8 @@
 ![Authentication Modal](images/auth-modal.png)
 
 ### Example
-![Live Demo](https://fullstackcode.camp/)
+[Live Demo](https://fullstackcode.camp/)
+
 Click on sign in once you get there. We use this exact same package on our site!
 
 
@@ -163,7 +164,7 @@ service cloud.firestore {
 | facebookLogo                        | Image                       | pass a imported image file to enable OAuth for Foogle.                                                         |    
 | twitterLogo                         | Image                       | pass a imported image file to enable OAuth for Toogle.                                                         |    
 | githubLogo                          | Image                       | pass a imported image file to enable OAuth for Github.                                                         |                           
-## Additional Inputs
+## Add Additional Custom Form Inputs
 
 Pass them into the `<FirebaseAuthenticationInterface>` as children
 
