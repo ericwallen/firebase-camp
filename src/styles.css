@@ -1,4 +1,4 @@
-#auth-modal{
+#modal{
 	display:none;
 	position: fixed;
 	z-index: 1;
@@ -9,38 +9,43 @@
 	overflow: auto;
 	background-color: rgba(0,0,0,0.4)
 }
-#auth-modal-content{
+#modal-content{
 	background-color: #fefefe;
 	margin: 4% auto;
 	border: 1px solid #888888;
-	width: 400px;
+	max-width: 400px;
 }
-#auth-modal-close{
+#modal-close{
     color: #FFF;
 	float: right;
 	margin-right: -15px;
 	margin-top: -15px;
-	font-size: 18px;
-	padding: 8px 14px 9px 15px;
+	/* font-size: 18px; */
+	padding: 10px;
 	border-radius: 100px;
     cursor: pointer;
 	position: relative;
-    text-align: center;
+    /* text-align: center; */
     background-color: rgb(196, 196, 196);
 	box-shadow: 0 2px rgb(167, 167, 167);
+	width: 12px;
+	height: 12px;
+	display: grid;
+	justify-content: center;
+	align-items: center ;
 }
-#auth-modal-close:hover{
+#modal-close >img{
+    filter: invert(99%) sepia(1%) saturate(0%) hue-rotate(168deg) brightness(113%) contrast(101%);
+	margin-top: -2px;	
+}
+#modal-close:hover{
 	box-shadow: 0 1px rgb(167, 167, 167);
 }
-#auth-modal-close:active{
+#modal-close:active{
 	box-shadow: 0 0 rgb(167, 167, 167);
 }
 #authentication{
 	padding: 40px 20px 20px 20px;
-}
-#sign-in-link, #create-user-link{
-	color: #32a1d7;
-	margin-left: 5px;
 }
 #create-user-inputs, #sign-in-inputs{
 	display: grid;
@@ -106,6 +111,33 @@
 .center{
 	text-align: center;
 }
+input{
+	width: 100%;
+	font-size: 20px;
+	padding: 10px 0px 10px 0px;
+	border-width: 0px 0px 2px 0px;
+}
+input::placeholder{
+	color: #989898
+}
+input:focus{
+	border-color: green;
+	outline: none;
+}
+
+img{
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
 .button-style-one{
 	color: #FFF;
 	text-align: center;
@@ -173,17 +205,4 @@
 }
 .createUserToggle{
 	color: #8697CB;
-}
-input{
-	width: 100%;
-	font-size: 20px;
-	padding: 10px 0px 10px 0px;
-	border-width: 0px 0px 2px 0px;
-}
-input::placeholder{
-	color: #989898
-}
-input:focus{
-	border-color: green;
-	outline: none;
 }

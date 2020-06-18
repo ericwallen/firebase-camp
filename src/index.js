@@ -1,7 +1,4 @@
-import app from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
-import 'firebase/storage';
+import * as app from 'firebase'
 import React, { useState, createContext } from 'react'
 const FirebaseContext = createContext(null)
 export { FirebaseContext }
@@ -26,6 +23,7 @@ export default ({ children }) => {
     )
 }
 
+
 export const FirebaseAuthenticationInterface = (props) => {
     const [errorMessage, setErrorMessage] = useState("")
     const [successMessage, setSuccessMessage] = useState("")
@@ -40,17 +38,17 @@ export const FirebaseAuthenticationInterface = (props) => {
                     displayName: inputsObj.createUserDisplayName
                 }).then(() => {
                     setShowLoadingVisual(false)
-                    props.handleHideAuthModal()
+                    props.handleHideAuthenticationInterface()
                     setTimeout(() => {
                         setErrorMessage('')
                     }, 7000)
-
-                    delete inputsObj.createUserEmail
-                    delete inputsObj.createUserPassword
-
+                    let userObj = {
+                        firstName: inputsObj.createUserFirstName,
+                        lastName: inputsObj.createUserLastName,
+                        dateJoined: app.firestore.Timestamp.fromDate(new Date())
+                    }
                     app.firestore().collection(props.usersCollection).doc(app.auth().currentUser.uid).set({
-                        ...inputsObj,
-                        dataJoined: app.firestore.Timestamp(Date.now())
+                        ...userObj
                     })
                 })
             })
@@ -68,7 +66,7 @@ export const FirebaseAuthenticationInterface = (props) => {
         app.auth().signInWithEmailAndPassword(inputsObj.signInEmail, inputsObj.signInPassword)
             .then(() => {
                 setShowLoadingVisual(false)
-                props.handleHideAuthModal()
+                props.handleHideAuthenticationInterface()
                 setTimeout(() => {
                     setErrorMessage('')
                 }, 7000)
@@ -92,7 +90,7 @@ export const FirebaseAuthenticationInterface = (props) => {
             .then((success) => {
                 setShowLoadingVisual(false)
                 setSuccessMessage('Password recovery email sent. Please check your email')
-                props.handleHideAuthModal()
+                props.handleHideAuthenticationInterface()
                 setTimeout(() => {
                     setErrorMessage('')
                 }, 7000)
@@ -117,9 +115,7 @@ export const FirebaseAuthenticationInterface = (props) => {
         let value = e.target.value
         let obj = inputsObj
         obj[name] = value
-        setInputsObj(obj)
-        console.log(inputsObj);
-        
+        setInputsObj(obj)  
     }
 
     // Invoked when user wants to sign in with Google
@@ -127,7 +123,7 @@ export const FirebaseAuthenticationInterface = (props) => {
         const googleProvider = new app.auth.GoogleAuthProvider()
         app.auth().signInWithPopup(googleProvider)
             .then(() => {
-                props.handleHideAuthModal()
+                props.handleHideAuthenticationInterface()
             })
             .catch(error => {
                 setErrorMessage(error.message)
@@ -143,7 +139,7 @@ export const FirebaseAuthenticationInterface = (props) => {
         const facebookProvider = new app.auth.FacebookAuthProvider()
         app.auth().signInWithPopup(facebookProvider)
             .then(() => {
-                props.handleHideAuthModal()
+                props.handleHideAuthenticationInterface()
             })
             .catch(error => {
                 setErrorMessage(error.message)
@@ -159,7 +155,7 @@ export const FirebaseAuthenticationInterface = (props) => {
         const twitterProvider = new app.auth.TwitterAuthProvider()
         app.auth().signInWithPopup(twitterProvider)
             .then(() => {
-                props.handleHideAuthModal()
+                props.handleHideAuthenticationInterface()
             })
             .catch(error => {
                 setErrorMessage(error.message)
@@ -175,7 +171,7 @@ export const FirebaseAuthenticationInterface = (props) => {
         const githubProvider = new app.auth.GithubAuthProvider()
         app.auth().signInWithPopup(githubProvider)
             .then(() => {
-                props.handleHideAuthModal()
+                props.handleHideAuthenticationInterface()
             })
             .catch(error => {
                 setErrorMessage(error.message)
@@ -186,8 +182,16 @@ export const FirebaseAuthenticationInterface = (props) => {
             })
     }
 
-    const processChildren = (children) => {
-        return children.map(each => <input {...each.props} onChange={handleInputs} />)
+    const processChildren = () => {
+        return props.children.map(each => <input {...each.props} onChange={handleInputs} />)
+    }
+
+    const showOAuth = () => {
+        if(props.googleLogo ||props.facebookLogo || props.githubLogo || props.twitterLogo){
+            return true
+        } else {
+            return false
+        }
     }
 
 
@@ -196,18 +200,21 @@ export const FirebaseAuthenticationInterface = (props) => {
         return (
             <>
 
-                <div id="oauth-providers">
-                    <div id="oauth-providers-grid">
-
-                        {props.googleLogo ? <img src={props.googleLogo} alt="Google" auth="sign-in-with-google" onClick={signInWithGoogle} /> : ''}
-                        {props.facebookLogo ? <img src={props.facebookLogo} alt="Facebook" auth="sign-in-with-facebook" onClick={signInWithFacebook} /> : ''}
-                        {props.githubLogo ? <img src={props.githubLogo} alt="Github" auth="sign-in-with-github" onClick={signInWithGithub} /> : ''}
-                        {props.twitterLogo ? <img src={props.twitterLogo} alt="Twitter" auth="sign-in-with-twitter" onClick={signInWithTwitter} /> : ''}
+                {showOAuth() &&
+                        <div id="oauth-providers">
+                        <div id="oauth-providers-grid">
+    
+                            {props.googleLogo ? <img src={props.googleLogo} alt="Google" auth="sign-in-with-google" onClick={signInWithGoogle} /> : ''}
+                            {props.facebookLogo ? <img src={props.facebookLogo} alt="Facebook" auth="sign-in-with-facebook" onClick={signInWithFacebook} /> : ''}
+                            {props.githubLogo ? <img src={props.githubLogo} alt="Github" auth="sign-in-with-github" onClick={signInWithGithub} /> : ''}
+                            {props.twitterLogo ? <img src={props.twitterLogo} alt="Twitter" auth="sign-in-with-twitter" onClick={signInWithTwitter} /> : ''}
+                        </div>
+                        <div id="or">
+                            <p>or</p>
+                        </div>
                     </div>
-                    <div id="or">
-                        <p>or</p>
-                    </div>
-                </div>
+                }
+                
 
                 {props.showForm === 'createUser' &&
                     <form id="create-user-form" onSubmit={handleCreateUserFormSubmit}  >
@@ -215,7 +222,8 @@ export const FirebaseAuthenticationInterface = (props) => {
                             <input onChange={handleInputs} type="text" name="createUserFirstName" placeholder="First Name" required autoComplete="off" style={{ gridColumnEnd: 'span 1' }} />
                             <input onChange={handleInputs} type="text" name="createUserLastName" placeholder="Last Name" required autoComplete="off" style={{ gridColumnEnd: 'span 1' }} />
                             <input onChange={handleInputs} type="text" name="createUserDisplayName" placeholder="Display Name" required autoComplete="off" style={{ gridColumnEnd: 'span 2' }} />
-                            {processChildren(props.children)}
+                            {props.children ? processChildren() : ''}
+
                         </div>
 
                         
@@ -242,7 +250,9 @@ export const FirebaseAuthenticationInterface = (props) => {
                         </div>
 
                         <div id="forgot-password-link" onClick={() => props.changeForm('forgotPassword')}>Forgot?</div>
-                        <p className="center"><button className="button-style-one" type="submit">Sign In</button></p>
+                        <div style={{ display: 'grid', justifyItems: 'center' }}>
+                            <button className="button-style-one" type="submit">Sign In</button>
+                        </div>
                     </form>
                 }
 
@@ -252,7 +262,9 @@ export const FirebaseAuthenticationInterface = (props) => {
                         <div id="forgot-password-inputs">
                             <input onChange={handleInputs} type="email" name="forgotPasswordEmail" placeholder="Email" required autoComplete="off" />
                         </div>
-                        <p className="center"><button className="button-style-three" type="submit">Send Recovery Email</button></p>
+                        <div style={{ display: 'grid', justifyItems: 'center' }}>
+                            <button className="button-style-three" type="submit">Send Recovery Email</button>
+                        </div>
                     </form>
                 }
 
@@ -279,7 +291,7 @@ export const FirebaseAuthenticationInterface = (props) => {
     }
 
     const closeButton = () => {
-        return props.hideCloseButton ? '' :  <span id="modal-close" onClick={props.handleHideAuthenticationInterface}>x</span>
+        return props.hideCloseButton ? '' :  <span id="modal-close" onClick={props.handleHideAuthenticationInterface}><img src={props.closeIcon}/></span>
     }
 
     return (
@@ -315,3 +327,21 @@ export const FirebaseAuthenticationInterface = (props) => {
 }
 
 
+
+export const BlankModal = (props) => {
+    const closeButton = () => {
+        return props.hideCloseButton ? '' :  <span id="modal-close" onClick={props.handleHideBlankModalInterface}><img src={props.closeIcon}/></span>
+    }
+
+
+    return(
+        <div id="modal" style={{ display: props.show ? 'block' : 'none' }} >
+            <div id="modal-content" style={{maxWidth: props.width ? props.width : '400px'}}>
+                {closeButton()}
+                <div id="authentication">
+                    {props.children}
+                </div>
+            </div>
+        </div>
+    )
+}

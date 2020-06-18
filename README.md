@@ -4,7 +4,7 @@
 
 ![logo](images/documentation-header.png)
 
-### Setting up Firebase in React can be tricky. This pacakge is designed to make configuring Firebase in your app a cinch. It also has a robust UI for Firebase Authenticaiton. 
+### Setting up Firebase in React can be tricky. This pacakge is designed to make configuring Firebase in your app a cinch. It also has a robust UI for Firebase Authentication. 
 
 ### Screenshot
 ![Authentication Modal](images/auth-modal.png)
@@ -46,6 +46,7 @@ In *App.js*
 import React, { useEffect, useState, useContext } from 'react';
 import { FirebaseConnection, FirebaseContext, FirebaseAuthModal } from 'firebase-camp'
 import loading from '../node_modules/firebase-camp/src/loading.gif'
+import closeIcon from '../node_modules/firebase-camp/src/close.svg'
 import '../node_modules/firebase-camp/src/styles.css'
 import './App.css';
 
@@ -60,13 +61,13 @@ function App() {
   useEffect(() => {
 
     FirebaseConnection({
-      apiKey: "AIzaSyDsd32fdsJSuhM5-SwPcfasdWdnoeuOoIo",
-      authDomain: "fullstackcode-camp.firebaseapp.com",
-      databaseURL: "https://fullstackcode-camp.firebaseio.com",
-      projectId: "fullstackcode-camp",
-      storageBucket: "fullstackcode-camp.appspot.com",
-      messagingSenderId: "3974346234287",
-      appId: "1:397174694587:web:3dd5sadfwwfdd23df7"
+      apiKey: "apiKey",
+      authDomain: "authDomain",
+      databaseURL: "databaseURL",
+      projectId: "projectId",
+      storageBucket: "storageBucket",
+      messagingSenderId: "messagingSenderId",
+      appId: "appId"
     })
 
     firebase.auth().onAuthStateChanged(user => {
@@ -113,6 +114,7 @@ function App() {
             loading={loading}
             usersCollection='users'
             modal={true}
+            closeIcon={closeIcon}
          />
 
         <button onClick={() => handleShowAuthModal('signIn')}>Sign in</button>
@@ -155,7 +157,7 @@ service cloud.firestore {
 | show                                | Boolean                     | Pass `true` to show the modal or `false` to hide it                                                            |
 | handleHideAuthenticationInterface   | Event                       | Use this event to change the `show` props value to `false`                                                     |
 | showForm                            | String                      | pass one of three Stings to this to show the form you want to see 1) `createUser`, `signIn` or `forgotPassword`|
-| changeForm                          | Event                       | Use this event to change the `showForm` props value to. The value comes through the first parameter            |
+| changeForm                          | Event                       | Use this event to change the `showForm` props value to which form you want to show. The value comes through the first parameter            |
 | loading                             | Image                       | pass a loading giphy or other type of imported image file                                                      |
 | modal                               | Boolean                     | If this is set to `true` the authentication interface is presented in a modal                                  |    
 | hideCloseButton                     | Boolean                     | If this is set to `true` the authentication interfaces close button will be hidden                             | 
@@ -163,7 +165,8 @@ service cloud.firestore {
 | googleLogo                          | Image                       | pass a imported image file to enable OAuth for Google.                                                         |
 | facebookLogo                        | Image                       | pass a imported image file to enable OAuth for Foogle.                                                         |    
 | twitterLogo                         | Image                       | pass a imported image file to enable OAuth for Toogle.                                                         |    
-| githubLogo                          | Image                       | pass a imported image file to enable OAuth for Github.                                                         |                           
+| githubLogo                          | Image                       | pass a imported image file to enable OAuth for Github.                                                         |    
+| closeIcon                           | Image                       | pass a imported image file to show and icon in the close button                                                |                          
 ## Add Additional Custom Form Inputs
 
 Pass them into the `<FirebaseAuthenticationInterface>` as children
@@ -176,7 +179,6 @@ Pass them into the `<FirebaseAuthenticationInterface>` as children
     changeForm={changeForm}
     loading={loading}
     modal={true}
-    // hideCloseButton={true}
     usersCollection='users'
     googleLogo={googleLogo}
     facebookLogo={facebookLogo}
@@ -189,3 +191,6 @@ Pass them into the `<FirebaseAuthenticationInterface>` as children
 </FirebaseAuthenticationInterface>
 ```
 
+### Showcase
+
+Did you use this package on your site? Send me a message to *fullstackcodecamp@gmail.com* with link and I will feature you here!
